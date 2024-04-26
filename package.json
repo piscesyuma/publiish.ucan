@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "source": "./src/index.ts",
   "types": "dist/src/index.d.ts",
+  "type": "module",
   "files": [
     "dist/**"
   ],
