@@ -1,0 +1,81 @@
+{
+  "name": "publiish-ucan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "source": "./src/index.ts",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "bin": {
+    "publiish-ucan": "./src/cli.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./keypair": "./src/keypair.ts",
+    "./types": "./src/types.ts",
+    "./did": "./src/did.ts",
+    "./service": "./src/service.ts",
+    "./ucan-storage": "./src/ucan-storage.ts",
+    "./ucan-chain": "./src/ucan-chain.ts",
+    "./ucan": "./src/ucan.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/src/*"
+      ]
+    }
+  },
+  "scripts": {
+    "format": "prettier --write **/*.{js,ts,yml,json} --ignore-path .gitignore",
+    "format:check": "prettier --check **/*.{js,ts,yml,json} --ignore-path .gitignore",
+    "clean": "rm -rf node_modules package-lock.json dist pnpm-lock.yaml",
+    "build": "tsc",
+    "test": "uvu -r ts-node/register tests",
+    "test-browser": "pw-test tests --runner uvu",
+    "test:watch": "watchlist src tests -- yarn test"
+  },
+  "keywords": [
+    "publiish",
+    "storage",
+    "automatedpros"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "dotenv": "^16.4.5",
+    "hd-scripts": "^1.1.0",
+    "lint-staged": "^12.3.5",
+    "playwright-test": "^7.2.2",
+    "prettier": "2.5.1",
+    "simple-git-hooks": "^2.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "uvu": "^0.5.3",
+    "watchlist": "^0.3.1"
+  },
+  "dependencies": {
+    "@noble/ed25519": "^1.5.2",
+    "base-x": "^4.0.0",
+    "sade": "^1.8.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,d.ts,yml,json}": "prettier --write",
+    "*.js": "eslint --fix"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/hd-scripts/eslint/index.js"
+    ]
+  },
+  "prettier": "./node_modules/hd-scripts/prettier.config.js",
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist",
+    "docs"
+  ]
+}
