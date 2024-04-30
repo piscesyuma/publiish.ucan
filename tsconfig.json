@@ -6,6 +6,8 @@
     "allowJs": true,
     "checkJs": true,
     "target": "ES2020",
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    "rootDir": "./src",   
     "lib": [
       "ES2020",
       "ES2020.Promise",
