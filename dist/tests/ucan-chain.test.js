@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const uvu_1 = require("uvu");
 const assert = tslib_1.__importStar(require("uvu/assert"));
-const Ucan = tslib_1.__importStar(require("../src/ucan"));
-const ucan_chain_1 = require("../src/ucan-chain");
-const semantics_1 = require("../src/semantics");
+const Ucan = tslib_1.__importStar(require("../src/modules/ucan"));
+const ucan_chain_1 = require("../src/modules/ucan-chain");
+const semantics_1 = require("../src/modules/semantics");
 (0, uvu_1.test)('verify single ucan', async () => {
     const kp1 = await Ucan.KeyPair.create();
     const kp2 = await Ucan.KeyPair.create();

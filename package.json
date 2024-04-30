@@ -2,24 +2,16 @@
   "name": "publiish-ucan",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
-  "types": "dist/src/index.d.ts",
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "repository": {
     "url": "piscesyuma/publiish.ucan"
   },
   "bin": {
     "ucan-storage": "./src/cli.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./keypair": "./src/keypair.ts",
-    "./types": "./src/types.ts",
-    "./did": "./src/did.ts",
-    "./service": "./src/service.ts",
-    "./ucan-storage": "./src/ucan-storage.ts",
-    "./ucan-chain": "./src/ucan-chain.ts",
-    "./ucan": "./src/ucan.ts"
-  },
+
   "typesVersions": {
     "*": {
       "*": [

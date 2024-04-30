@@ -1,9 +1,9 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import * as Ucan from '../src/ucan'
-import { UcanChain } from '../src/ucan-chain'
-import { storageSemantics } from '../src/semantics'
-import { Capability } from '../src/types'
+import * as Ucan from '../src/modules/ucan'
+import { UcanChain } from '../src/modules/ucan-chain'
+import { storageSemantics } from '../src/modules/semantics'
+import { Capability } from '../src/modules/types'
 
 test('verify single ucan', async () => {
   const kp1 = await Ucan.KeyPair.create()

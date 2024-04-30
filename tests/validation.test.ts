@@ -1,8 +1,8 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import { base64url, utf8 } from '../src/encoding'
-import { validate, KeyPair } from '../src/ucan'
-import { serialize } from '../src/utils'
+import { base64url, utf8 } from '../src/modules/encoding'
+import { validate, KeyPair } from '../src/modules/ucan'
+import { serialize } from '../src/modules/utils'
 
 test('should fail with string "test"', async () => {
   try {

@@ -4,8 +4,8 @@ const tslib_1 = require("tslib");
 /* eslint-disable unicorn/no-null */
 const uvu_1 = require("uvu");
 const assert = tslib_1.__importStar(require("uvu/assert"));
-const errors_1 = require("../src/errors");
-const semantics_1 = require("../src/semantics");
+const errors_1 = require("../src/modules/errors");
+const semantics_1 = require("../src/modules/semantics");
 (0, uvu_1.test)('should fail with resource as a number', async () => {
     const parsed = semantics_1.storageSemantics.tryParsing({
         with: 1000,
