@@ -25,7 +25,7 @@ exports.storageSemantics = {
             return {
                 with: cap.with,
                 can: cap.can,
-                mh: cap.mh,
+                mh: cap.mh?.toString(),
             };
         }
         return new errors_1.CapabilityParseError('Capability is not supported.', cap);

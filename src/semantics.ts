@@ -44,7 +44,7 @@ export const storageSemantics: CapabilitySemantics<StorageSemantics> = {
       return {
         with: cap.with,
         can: cap.can,
-        mh: cap.mh,
+        mh: cap.mh?.toString(),
       }
     }
 
