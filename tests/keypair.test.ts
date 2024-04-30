@@ -1,9 +1,9 @@
 import { suite } from 'uvu'
 import * as assert from 'uvu/assert'
 import * as ed from '@noble/ed25519'
-import { KeyPair } from '../src/modules/keypair'
-import { base64Pad } from '../src/modules/encoding'
-import { didToPublicKeyBytes } from '../src/modules/did'
+import { KeyPair } from '../src/keypair'
+import { base64Pad } from '../src/encoding'
+import { didToPublicKeyBytes } from '../src/did'
 
 const data = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9])
 

@@ -11,7 +11,16 @@
   "bin": {
     "ucan-storage": "./src/cli.ts"
   },
-
+  "exports": {
+    ".": "./src/index.ts",
+    "./keypair": "./src/keypair.ts",
+    "./types": "./src/types.ts",
+    "./did": "./src/did.ts",
+    "./service": "./src/service.ts",
+    "./ucan-storage": "./src/ucan-storage.ts",
+    "./ucan-chain": "./src/ucan-chain.ts",
+    "./ucan": "./src/ucan.ts"
+  },
   "typesVersions": {
     "*": {
       "*": [

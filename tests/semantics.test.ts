@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/no-null */
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import { CapabilityParseError } from '../src/modules/errors'
-import { storageSemantics } from '../src/modules/semantics'
-import { CanType } from '../src/modules/types'
+import { CapabilityParseError } from '../src/errors'
+import { storageSemantics } from '../src/semantics'
+import { CanType } from '../src/types'
 
 test('should fail with resource as a number', async () => {
   const parsed = storageSemantics.tryParsing({

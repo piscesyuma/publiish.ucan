@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const uvu_1 = require("uvu");
 const assert = tslib_1.__importStar(require("uvu/assert"));
-const encoding_1 = require("../src/modules/encoding");
-const ucan_1 = require("../src/modules/ucan");
-const utils_1 = require("../src/modules/utils");
+const encoding_1 = require("../src/encoding");
+const ucan_1 = require("../src/ucan");
+const utils_1 = require("../src/utils");
 (0, uvu_1.test)('should fail with string "test"', async () => {
     try {
         await (0, ucan_1.validate)('test');
