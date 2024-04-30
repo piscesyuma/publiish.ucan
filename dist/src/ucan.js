@@ -8,6 +8,12 @@ const TYPE = 'JWT';
 const VERSION = '0.8.0';
 var keypair_1 = require("./keypair");
 Object.defineProperty(exports, "KeyPair", { enumerable: true, get: function () { return keypair_1.KeyPair; } });
+/**
+ * Build a Ucan from the given parameters.
+ *
+ * @param {import("./types").BuildParams} params
+ * @returns {Promise<import('./types').UcanWithJWT>}
+ */
 async function build(params) {
     const keypair = params.issuer;
     const didStr = (0, did_1.publicKeyBytesToDid)(keypair.publicKey);
@@ -18,10 +24,19 @@ async function build(params) {
     return sign(payload, keypair);
 }
 exports.build = build;
+/**
+ * Build parts
+ *
+ * @param {import('./types').BuildPayload} params
+ */
 function buildPayload(params) {
-    const { issuer, audience, capabilities = [], lifetimeInSeconds = 30, expiration, notBefore, facts, proofs = [], } = params;
+    const { issuer, audience, capabilities = [], lifetimeInSeconds = 30, expiration, notBefore, facts, proofs = [],
+    // addNonce = false,
+     } = params;
+    // Timestamps
     const currentTimeInSeconds = Math.floor(Date.now() / 1000);
     const exp = expiration || currentTimeInSeconds + lifetimeInSeconds;
+    /** @type {import('./types').UcanPayload} */
     const payload = {
         aud: audience,
         att: capabilities,
@@ -29,19 +44,31 @@ function buildPayload(params) {
         fct: facts,
         iss: issuer,
         nbf: notBefore,
+        // nnc: addNonce ? util.generateNonce() : undefined,
         prf: proofs,
     };
     return payload;
 }
+/**
+ * Generate UCAN signature.
+ *
+ * @param {import("./types").UcanPayload<string>} payload
+ * @param {import("./keypair.js").KeyPair} keypair
+ *
+ * @returns {Promise<import('./types').UcanWithJWT>}
+ */
 async function sign(payload, keypair) {
+    /** @type {import('./types').UcanHeader} */
     const header = {
         alg: 'EdDSA',
         typ: TYPE,
         ucv: VERSION,
     };
+    // Encode parts
     const encodedHeader = (0, utils_1.serialize)(header);
     const encodedPayload = (0, utils_1.serialize)(payload);
     const toSign = `${encodedHeader}.${encodedPayload}`;
+    // EdDSA signature
     const sig = await keypair.sign(encoding_1.utf8.decode(toSign));
     const encodedSig = encoding_1.base64url.encode(sig);
     return {
@@ -52,7 +79,14 @@ async function sign(payload, keypair) {
     };
 }
 exports.sign = sign;
+/**
+ * @param {string} encodedUcan
+ * @param {import('./types').ValidateOptions} [options]
+ *
+ * @returns {Promise<import('./types').Ucan>}
+ */
 async function validate(encodedUcan, options = {}) {
+    /** @type {import('./types').ValidateOptions} */
     const opts = {
         checkIssuer: true,
         checkIsExpired: true,
@@ -88,6 +122,11 @@ async function validate(encodedUcan, options = {}) {
     return { header, payload, signature };
 }
 exports.validate = validate;
+/**
+ * Check if input is a encoded UCAN
+ *
+ * @param {string} encodedUcan
+ */
 function isUcan(encodedUcan) {
     const [encodedHeader, encodedPayload, encodedSignature] = encodedUcan.split('.');
     if (encodedHeader === undefined ||
@@ -95,11 +134,11 @@ function isUcan(encodedUcan) {
         encodedSignature === undefined) {
         return false;
     }
-    const header = (0, utils_1.deserialize)(encodedHeader);
+    const header = 
+    /** @type {import('./types').UcanHeader} */ (0, utils_1.deserialize)(encodedHeader);
     if (typeof header.ucv === 'string') {
         return true;
     }
     return false;
 }
 exports.isUcan = isUcan;
-//# sourceMappingURL=ucan.js.map

@@ -27,4 +27,3 @@ class CapabilityParseError extends Error {
 }
 exports.CapabilityParseError = CapabilityParseError;
 CapabilityParseError.CODE = 'ERROR_CAPABILITY_PARSE';
-//# sourceMappingURL=errors.js.map

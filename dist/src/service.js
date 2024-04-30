@@ -1,37 +1,21 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Service = void 0;
-const ucan = __importStar(require("./ucan-storage"));
+const tslib_1 = require("tslib");
+const ucan = tslib_1.__importStar(require("./ucan-storage"));
 const ucan_chain_1 = require("./ucan-chain");
 const keypair_1 = require("./keypair");
 const semantics_1 = require("./semantics");
 class Service {
+    /**
+     * @param {KeyPair} keypair
+     */
     constructor(keypair) {
         this.keypair = keypair;
     }
+    /**
+     * @param {string} key
+     */
     static async fromPrivateKey(key) {
         const kp = await keypair_1.KeyPair.fromExportedKey(key);
         return new Service(kp);
@@ -39,6 +23,13 @@ class Service {
     static async create() {
         return new Service(await keypair_1.KeyPair.create());
     }
+    /**
+     * Validates UCAN for capability
+     *
+     * @param {string} encodedUcan
+     * @param {import('./types.js').Capability} capability
+     * @returns {Promise<UcanChain>} Returns the root ucan for capability
+     */
     async validate(encodedUcan, capability) {
         const token = await ucan_chain_1.UcanChain.fromToken(encodedUcan, {});
         if (token.audience() !== this.did()) {
@@ -50,6 +41,11 @@ class Service {
         }
         return origin;
     }
+    /**
+     * It checks the full validity of the chain, that root issuer and target audience is the service did.
+     *
+     * @param {string} encodedUcan
+     */
     async validateFromCaps(encodedUcan) {
         const token = await ucan_chain_1.UcanChain.fromToken(encodedUcan, {});
         if (token.audience() !== this.did()) {
@@ -64,8 +60,11 @@ class Service {
     did() {
         return this.keypair.did();
     }
+    /**
+     * @param {string} did
+     */
     ucan(did) {
-        const ttl = 1209600;
+        const ttl = 1_209_600; // 2 weeks
         return ucan.build({
             issuer: this.keypair,
             audience: did,
@@ -73,6 +72,10 @@ class Service {
             lifetimeInSeconds: ttl,
         });
     }
+    /**
+     * @param {string} encodedUcan
+     * @param {string} did
+     */
     async refresh(encodedUcan, did) {
         const token = await ucan_chain_1.UcanChain.fromToken(encodedUcan, {});
         if (token.issuer() !== did) {
@@ -86,4 +89,3 @@ class Service {
     }
 }
 exports.Service = Service;
-//# sourceMappingURL=service.js.map

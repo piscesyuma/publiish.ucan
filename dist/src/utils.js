@@ -2,6 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isTooEarly = exports.isExpired = exports.jwtAlgorithm = exports.deserialize = exports.serialize = exports.equals = exports.concatUint8 = void 0;
 const encoding_1 = require("./encoding");
+/**
+ * Concat Uint8Arrays
+ *
+ * @param {Uint8Array[]} arrays
+ */
 function concatUint8(arrays) {
     let totalLength = 0;
     for (const arr of arrays) {
@@ -16,6 +21,12 @@ function concatUint8(arrays) {
     return result;
 }
 exports.concatUint8 = concatUint8;
+/**
+ * Returns true if the two passed Uint8Arrays have the same content
+ *
+ * @param {Uint8Array} a
+ * @param {Uint8Array} b
+ */
 function equals(a, b) {
     if (a === b) {
         return true;
@@ -31,10 +42,20 @@ function equals(a, b) {
     return true;
 }
 exports.equals = equals;
+/**
+ * Serialise Object to JWT style string.
+ *
+ * @param {any} input - JSON input
+ */
 function serialize(input) {
     return encoding_1.base64url.encode(encoding_1.utf8.decode(JSON.stringify(input)));
 }
 exports.serialize = serialize;
+/**
+ * Deserialise Object to JWT style string.
+ *
+ * @param {string} input
+ */
 function deserialize(input) {
     let headerUtf8;
     try {
@@ -52,6 +73,11 @@ function deserialize(input) {
     }
 }
 exports.deserialize = deserialize;
+/**
+ * JWT algorithm to be used in a JWT header.
+ *
+ * @param {import('./types.js').KeyType} keyType
+ */
 function jwtAlgorithm(keyType) {
     switch (keyType) {
         case 'ed25519':
@@ -61,10 +87,20 @@ function jwtAlgorithm(keyType) {
     }
 }
 exports.jwtAlgorithm = jwtAlgorithm;
+/**
+ * Check if a UCAN is expired.
+ *
+ * @param {import('./types.js').UcanPayload} payload
+ */
 function isExpired(payload) {
     return payload.exp <= Math.floor(Date.now() / 1000);
 }
 exports.isExpired = isExpired;
+/**
+ * Check if a UCAN is not active yet.
+ *
+ * @param {import('./types.js').UcanPayload} payload
+ */
 function isTooEarly(payload) {
     if (!payload.nbf) {
         return false;
@@ -72,4 +108,3 @@ function isTooEarly(payload) {
     return payload.nbf > Math.floor(Date.now() / 1000);
 }
 exports.isTooEarly = isTooEarly;
-//# sourceMappingURL=utils.js.map

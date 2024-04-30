@@ -42,7 +42,7 @@
     "automatedpros"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.12.7",
     "dotenv": "^16.4.5",

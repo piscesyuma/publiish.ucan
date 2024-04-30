@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable unicorn/no-null */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.storageSemantics = void 0;
 const errors_1 = require("./errors");
@@ -7,6 +8,9 @@ const uploadLevels = {
     'upload/IMPORT': -1,
 };
 const PREFIX = 'storage://';
+/**
+ * @type {import('./types').CapabilitySemantics<import('./types').StorageSemantics>}
+ */
 exports.storageSemantics = {
     tryParsing(cap) {
         if (typeof cap.with !== 'string') {
@@ -31,17 +35,28 @@ exports.storageSemantics = {
         return new errors_1.CapabilityParseError('Capability is not supported.', cap);
     },
     tryDelegating(parentCap, childCap) {
+        // check for unrelated caps
         if (!parentCap.with.startsWith(PREFIX) ||
             !childCap.with.startsWith(PREFIX)) {
             return new errors_1.CapabilityUnrelatedError(parentCap, childCap);
         }
+        // must not escalate capability level
         if (uploadLevels[childCap.can] > uploadLevels[parentCap.can]) {
+            // console.log('\n', childCap, '\n', parentCap)
+            // console.log('⚠️ Capability level escalation')
             return new errors_1.CapabilityEscalationError('Capability level escalation', parentCap, childCap);
         }
         if (!childCap.with.includes(parentCap.with)) {
+            // console.log('\n', childCap, '\n', parentCap)
+            // console.log('⚠️ Child resource does not match parent resource')
             return new errors_1.CapabilityEscalationError('Child resource does not match parent resource', parentCap, childCap);
         }
+        // if (childCap.with.length <= parentCap.with.length) {
+        //   return {
+        //     escalation: 'Child resource must be under parent resource',
+        //     capability: childCap,
+        //   }
+        // }
         return childCap;
     },
 };
-//# sourceMappingURL=semantics.js.map
