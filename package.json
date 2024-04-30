@@ -10,7 +10,7 @@
     "dist/**"
   ],
   "bin": {
-    "publiish-ucan": "./src/cli.ts"
+    "publiish-ucan": "./src/index.ts"
   },
   "exports": {
     ".": "./src/index.ts",

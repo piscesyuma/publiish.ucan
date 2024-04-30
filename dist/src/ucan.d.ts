@@ -1,6 +1,5 @@
 import { KeyPair } from './keypair';
 import { BuildParams, UcanHeader, UcanPayload, ValidateOptions } from './types';
-export { KeyPair } from './keypair';
 /**
  * Build a Ucan from the given parameters.
  *
