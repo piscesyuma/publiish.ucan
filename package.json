@@ -2,9 +2,9 @@
   "name": "publiish-ucan",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.js",
+  "main": "./dist/src/index.js",
   "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/src/index.d.ts",
   "repository": {
     "url": "piscesyuma/publiish.ucan"
   },
