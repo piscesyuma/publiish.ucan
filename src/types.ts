@@ -193,7 +193,7 @@ export interface CapabilitySemantics<A> {
 
 export interface StorageSemantics extends Capability {
   with: string
-  can: 'upload/IMPORT' | 'upload/*'
+  can: CanType
   /**
    * Constrain an import by [multihash](https://github.com/multiformats/multihash)
    */
