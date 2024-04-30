@@ -2,9 +2,9 @@
   "compilerOptions": {
     "strict": true,
     // project options
-    "outDir": "dist",
+    "outDir": "./dist",
     "allowJs": true,
-    "checkJs": true,
+    // "checkJs": true,
     "target": "ES2020",
     "module": "commonjs",                                /* Specify what module code is generated. */
     "rootDir": "./src",   
@@ -15,10 +15,12 @@
       "ES2020.BigInt",
       "DOM"
     ],
-    "noEmit": false,
-    "noEmitOnError": true,
-    "emitDeclarationOnly": true,
-    "sourceMap": false,
+    // "noEmit": false,
+    // "noEmitOnError": true,
+    // "emitDeclarationOnly": true,
+    "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
+    "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
+    "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "incremental": true,
@@ -29,15 +31,22 @@
     "esModuleInterop": true,
     "moduleResolution": "Node",
     // linter checks
-    "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    // "noImplicitReturns": false,
+    // "noFallthroughCasesInSwitch": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": false,
     // advanced
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "stripInternal": true,
     "resolveJsonModule": true
   },
-  "include": ["src", "src/types.ts"]
+  "include": [
+    "src/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "docs"
+  ]
 }
