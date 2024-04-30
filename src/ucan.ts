@@ -19,7 +19,7 @@ import {
 const TYPE = 'JWT'
 const VERSION = '0.8.0'
 
-// export { KeyPair } from './keypair'
+export { KeyPair } from './keypair'
 
 /**
  * Build a Ucan from the given parameters.
